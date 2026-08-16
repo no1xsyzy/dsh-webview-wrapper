@@ -119,7 +119,7 @@ For a private dev profile, copy `web` first as in [Custom profile](#custom-profi
 
 Notes:
 
-- **The workspace never runs the app.** `pnpm-workspace.yaml` blocks the WebviewJS native addon builds (`koffi`, `libwebview-nodejs`) on purpose; the wrapper is composed into a profile to run, not executed from the checkout. Use the `dsh plugin ... add file:<path>` flow to test.
+- **The workspace never runs the app.** The wrapper is a plugin: it only executes inside a profile composition (it injects `webServer` / `webRuntime`), so this checkout has no dev server and no standalone entrypoint — and its dependency chain ships prebuilt platform binaries, so there are no native addon builds either. Use the `dsh plugin ... add file:<path>` flow to test.
 - `lib/` and `node_modules` are gitignored; `lib/` is build output.
 - **Name discipline (npm publication).** The npm package name must stay identical across `package.json` `name`, the plugin name in `src/index.ts`, the bundle row in `cordis.patch.yml`, and the invariant registration in `src/invariant.ts`. The plugin manager resolves bundles and the `InvariantRegistry` keys registrations by npm name, so renaming means updating all four places.
 - Keep `README.md` and `README.zh.md` in sync.

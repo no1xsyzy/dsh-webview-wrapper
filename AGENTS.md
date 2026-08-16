@@ -14,7 +14,7 @@ Guidance for AI agents and human contributors working in this repository.
 | `pnpm run build` | `tsc -p tsconfig.json` → compiled plugin plus types in `lib/`. There is no test suite yet; the build is the primary verification. |
 | `npm pack --dry-run` | Inspect the exact publish tarball (12 files, ≈12 kB). Under a file sandbox that blocks the npm cache, add `--cache <in-workspace-dir>`. |
 
-There is no dev server, and the app cannot run from this checkout: `pnpm-workspace.yaml` blocks the WebviewJS native addon builds (`koffi`, `libwebview-nodejs`) on purpose. The plugin runs only when composed into a profile:
+There is no dev server, and the app cannot run from this checkout: the wrapper is a plugin that only executes inside a profile composition — it injects `webServer` / `webRuntime`, and nothing in this checkout boots the harness. The plugin runs only when composed into a profile:
 
 ```sh
 pnpm run build
@@ -33,7 +33,6 @@ dsh --profile web
 | `src/invariant.ts` | The invariant companion (`dsh-webview-wrapper/invariant`). Registers the package with the `InvariantRegistry`; intentionally an empty installer (see constraints). |
 | `assets/icon.svg` | Taskbar/tray icon source, rasterized by `sharp` (the Harness wordmark). |
 | `package.json` | npm manifest. The `dsh.bundle.patch` declaration is what makes `dsh plugin` treat this package as a bundle. |
-| `pnpm-workspace.yaml` | Blocks native addon builds locally; do not remove without a reason. |
 
 ## Conventions and constraints
 

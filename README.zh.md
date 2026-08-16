@@ -120,7 +120,7 @@ dsh plugin --profile ww-dev add file:/绝对/路径/dsh-webview-wrapper
 
 注意事项：
 
-- **本工作区从不直接运行应用。** `pnpm-workspace.yaml` 刻意禁掉了 WebviewJS 原生插件构建（`koffi`、`libwebview-nodejs`）；wrapper 要组合进 profile 才能跑，不能在工作区里直接执行。测试请走 `dsh plugin ... add file:<路径>` 流程。
+- **本工作区从不直接运行应用。** wrapper 是插件：只能在 profile 组合内执行（它注入 `webServer` / `webRuntime`），因此本工作区没有开发服务器、也没有独立入口——其依赖链以预编译平台二进制分发，也不存在原生插件构建。测试请走 `dsh plugin ... add file:<路径>` 流程。
 - `lib/` 与 `node_modules` 已在 .gitignore 中；`lib/` 是构建产物。
 - **命名纪律（npm 发布）。** npm 包名必须与 `package.json` 的 `name`、`src/index.ts` 的插件名、`cordis.patch.yml` 的 bundle 行、`src/invariant.ts` 的注册名保持一致。插件管理器按包名解析 bundle，`InvariantRegistry` 按 npm 包名登记注册——改名需要四处同步。
 - 保持 `README.md` 与 `README.zh.md` 同步。
