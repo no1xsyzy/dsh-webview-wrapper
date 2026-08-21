@@ -1,6 +1,6 @@
 {
   "name": "dsh-webview-wrapper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A naive native desktop shell for the DeepSeek Harness web surface: hosts the dsh Web app in an OS window via WebviewJS, as a pure everything-is-a-plugin composition.",
   "type": "module",
   "main": "lib/index.js",
