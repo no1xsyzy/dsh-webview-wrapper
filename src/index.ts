@@ -7,7 +7,7 @@ import {
     type TrayIconImage
 } from "@webviewjs/webview";
 // noinspection ES6UnusedImports -- for injecting ctx.webServer
-import {} from "@deepseek-ai/dsh-host-webserver";
+import type {} from "@deepseek-ai/dsh-host-webserver";
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import sharp from 'sharp'

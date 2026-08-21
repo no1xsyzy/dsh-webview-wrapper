@@ -29,7 +29,7 @@ dsh --profile web
 | Path | Role |
 |---|---|
 | `src/index.ts` | The plugin. `inject: ['webRuntime', 'webServer']`; owns the WebviewJS `Application`, tray, main window, and event routing; the effect disposer calls `app.exit()`. |
-| `cordis.patch.yml` | The bundle patch layer. Must stay minimal: it only inserts `{ id: webview, name: 'dsh-webview-wrapper' }` into the composition. |
+| `cordis.patch.yml` | The bundle patch layer. Must stay minimal: it pins the `web-runtime` row's `openBrowser` off (a patch replaces the whole config, so every key that row owns is restated) and inserts `{ id: webview, name: 'dsh-webview-wrapper' }` into the composition. |
 | `src/invariant.ts` | The invariant companion (`dsh-webview-wrapper/invariant`). Registers the package with the `InvariantRegistry`; intentionally an empty installer (see constraints). |
 | `assets/icon.svg` | Taskbar/tray icon source, rasterized by `sharp` (the Harness wordmark). |
 | `package.json` | npm manifest. The `dsh.bundle.patch` declaration is what makes `dsh plugin` treat this package as a bundle. |

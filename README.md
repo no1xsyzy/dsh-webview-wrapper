@@ -43,7 +43,7 @@ dsh --profile ww
 
 1. `dsh plugin` initializes the profile on first use, then runs `pnpm add` in the profile directory.
 2. Because `dsh-webview-wrapper` declares `dsh.bundle.patch` in its manifest, the plugin manager automatically appends it to the profile's `dsh.profile.bundles` layer stack.
-3. On the next boot, the bundle's patch layer ([`cordis.patch.yml`](cordis.patch.yml)) inserts the `webview` plugin row into the composition.
+3. On the next boot, the bundle's patch layer ([`cordis.patch.yml`](cordis.patch.yml)) pins the `web-runtime` row's browser handoff off (the wrapper owns the window) and inserts the `webview` plugin row into the composition.
 4. The plugin waits for `webServer` / `webRuntime`, then owns the native window lifecycle.
 
 ### One rule: don't `add` the in-box bundles
@@ -76,7 +76,7 @@ dsh plugin --profile web add file:/absolute/path/to/dsh-webview-wrapper
 | File | Role |
 |---|---|
 | `src/index.ts` | The plugin: creates the WebviewJS `Application`, the tray, and the main window; routes `custom-menu-click`, `window-close-requested`, and `application-close-requested`; calls `app.exit()` on disposal. |
-| `cordis.patch.yml` | The bundle patch layer: inserts `{ id: webview, name: 'dsh-webview-wrapper' }` into the composition. |
+| `cordis.patch.yml` | The bundle patch layer: pins the `web-runtime` row's `openBrowser` off (the webview owns the window) and inserts `{ id: webview, name: 'dsh-webview-wrapper' }` into the composition. |
 | `src/invariant.ts` | The invariant companion, registering the package with the `InvariantRegistry`. |
 | `assets/icon.svg` | Taskbar / tray icon source, rasterized with `sharp`. |
 

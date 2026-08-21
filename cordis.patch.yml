@@ -1,3 +1,15 @@
+# The web-app bundle opens the canonical URL in the default browser once its
+# Loader tree settles (openBrowser defaults true). This wrapper owns the
+# window, so this layer pins the web-runtime row's browser handoff off. A
+# patch replaces the targeted row's whole config, so every key the row owns
+# is restated here.
+- id: web-runtime
+  config:
+    openBrowser: false
+    printUrl: true
+    surfaceContext: true
+    trustedHosts: !!js ctx.webStartup.trustedHosts
+
 - insert:
     - id: webview-wrapper
       name: 'dsh-webview-wrapper'

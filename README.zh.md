@@ -43,7 +43,7 @@ dsh --profile ww
 
 1. 首次使用时 `dsh plugin` 会先初始化 profile，然后在 profile 目录里执行 `pnpm add`。
 2. 由于 `dsh-webview-wrapper` 的 manifest 声明了 `dsh.bundle.patch`，插件管理器会自动把它追加进 profile 的 `dsh.profile.bundles` 层栈。
-3. 下次启动时，bundle 的 patch 层（[`cordis.patch.yml`](cordis.patch.yml)）向组合里插入 `webview` 插件行。
+3. 下次启动时，bundle 的 patch 层（[`cordis.patch.yml`](cordis.patch.yml)）关掉 `web-runtime` 行的浏览器交接（窗口由 wrapper 自己持有），并向组合里插入 `webview` 插件行。
 4. 插件等待 `webServer` / `webRuntime` 服务就绪后，接管原生窗口的生命周期。
 
 ### 一条规则：不要 `add` 内置 bundle
@@ -76,7 +76,7 @@ dsh plugin --profile web add file:/绝对/路径/dsh-webview-wrapper
 | 文件 | 职责 |
 |---|---|
 | `src/index.ts` | 插件本体：创建 WebviewJS `Application`、托盘与主窗口；路由 `custom-menu-click`、`window-close-requested`、`application-close-requested`；卸载时调用 `app.exit()`。 |
-| `cordis.patch.yml` | bundle 的 patch 层：向组合插入 `{ id: webview, name: 'dsh-webview-wrapper' }`。 |
+| `cordis.patch.yml` | bundle 的 patch 层：关掉 `web-runtime` 行的 `openBrowser`（窗口由 webview 自己持有），并向组合插入 `{ id: webview, name: 'dsh-webview-wrapper' }`。 |
 | `src/invariant.ts` | invariant 伴生插件，向 `InvariantRegistry` 注册本包。 |
 | `assets/icon.svg` | 任务栏 / 托盘图标源文件，用 `sharp` 栅格化。 |
 
