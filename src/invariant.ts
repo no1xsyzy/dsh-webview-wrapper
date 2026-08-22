@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Xu Siyuan
+
 /**
  * Package-owned invariant companion for `dsh-webview-wrapper`.
  * @module dsh-webview-wrapper/invariant

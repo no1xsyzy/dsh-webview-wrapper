@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Xu Siyuan
 import type { Context } from '@deepseek-ai/cordis'
 import {
     Application,
