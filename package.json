@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-client-connection": "alpha",
     "@deepseek-ai/dsh-host-webserver": "alpha",
     "@deepseek-ai/dsh-invariants": "alpha",
     "@types/node": "^22.20.0",

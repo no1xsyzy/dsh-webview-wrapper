@@ -10,12 +10,14 @@ import {
 } from "@webviewjs/webview";
 // noinspection ES6UnusedImports -- for injecting ctx.webServer
 import type {} from "@deepseek-ai/dsh-host-webserver";
+// noinspection ES6UnusedImports -- for injecting ctx.connection
+import type {} from "@deepseek-ai/dsh-client-connection";
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import sharp from 'sharp'
 
 export const name = 'dsh-webview-wrapper'
-export const inject = ['webRuntime', 'webServer']
+export const inject = ['webRuntime', 'webServer', 'connection']
 
 const iconPath = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'icon.svg');
 
@@ -74,7 +76,7 @@ export function apply(ctx: Context) {
                     })
 
                     mainWebview = mainWindow.createWebview({
-                        url: `http://127.0.0.1:${ctx.webServer.port}`,
+                        url: ctx.connection.authenticatedUrl(`http://127.0.0.1:${ctx.webServer.port}`),
                     })
                 })
             } else {
