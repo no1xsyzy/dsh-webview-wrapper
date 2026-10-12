@@ -1,3 +1,8 @@
+> [!CAUTION]
+> This workaround is deprecated and abandoned because official DSH has its interface.
+> 
+> 因官方DSH有了界面，此临时措施过时且抛弃。
+
 # `dsh-webview-wrapper`
 
 [English](README.md) | 中文
